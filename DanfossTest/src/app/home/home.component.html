@@ -1,0 +1,35 @@
+﻿<h1>Все дома</h1>
+<mat-table #table [dataSource]="dataSource">
+
+    <ng-container matColumnDef="address">
+        <mat-header-cell *matHeaderCellDef>Наименование</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            {{element.address}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="waterValues">
+        <mat-header-cell *matHeaderCellDef>Показания</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            {{element.waterValues}}
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns">
+
+    </mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+</mat-table>
+
+<section>
+    <div *ngIf="minValue">
+        <h2>Максимальное значение</h2>
+        <app-house [house]="minValue"></app-house>
+    </div>
+
+    <div *ngIf="maxValue">
+        <h2>Минимальное значение</h2>
+        <app-house [house]="maxValue"></app-house>
+    </div>
+</section>

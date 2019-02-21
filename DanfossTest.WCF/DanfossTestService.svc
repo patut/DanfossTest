@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="DanfossTest.WCF.DanfossTestService" CodeBehind="DanfossTestService.svc.cs" %>

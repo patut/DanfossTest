@@ -1,0 +1,11 @@
+div {
+    display: flex;
+    flex-direction: column;
+    min-width: 870px;
+}
+
+app-left-params-tab {
+    width: 320px;
+    min-width: 320px;
+    padding-right: 10px;
+}

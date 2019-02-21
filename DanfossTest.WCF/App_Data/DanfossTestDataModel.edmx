@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DanfossTestDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="House">
+          <Key>
+            <PropertyRef Name="HouseId" />
+          </Key>
+          <Property Name="HouseId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RefWaterCounter" Type="uniqueidentifier" />
+          <Property Name="Address" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="WaterCounter">
+          <Key>
+            <PropertyRef Name="WaterCounterId" />
+          </Key>
+          <Property Name="WaterCounterId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="WaterValues" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Number" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK__House__RefWaterC__2A4B4B5E">
+          <End Role="WaterCounter" Type="Self.WaterCounter" Multiplicity="0..1" />
+          <End Role="House" Type="Self.House" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WaterCounter">
+              <PropertyRef Name="WaterCounterId" />
+            </Principal>
+            <Dependent Role="House">
+              <PropertyRef Name="RefWaterCounter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DanfossTestDatabaseModelStoreContainer">
+          <EntitySet Name="House" EntityType="Self.House" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WaterCounter" EntityType="Self.WaterCounter" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__House__RefWaterC__2A4B4B5E" Association="Self.FK__House__RefWaterC__2A4B4B5E">
+            <End Role="WaterCounter" EntitySet="WaterCounter" />
+            <End Role="House" EntitySet="House" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DanfossTestDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DanfossTestDatabaseEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="House" EntityType="DanfossTestDatabaseModel.House" />
+          <EntitySet Name="WaterCounter" EntityType="DanfossTestDatabaseModel.WaterCounter" />
+          <AssociationSet Name="FK__House__RefWaterC__2A4B4B5E" Association="DanfossTestDatabaseModel.FK__House__RefWaterC__2A4B4B5E">
+            <End Role="WaterCounter" EntitySet="WaterCounter" />
+            <End Role="House" EntitySet="House" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="House">
+          <Key>
+            <PropertyRef Name="HouseId" />
+          </Key>
+          <Property Name="HouseId" Type="Guid" Nullable="false" />
+          <Property Name="RefWaterCounter" Type="Guid" />
+          <Property Name="Address" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="WaterCounter" Relationship="DanfossTestDatabaseModel.FK__House__RefWaterC__2A4B4B5E" FromRole="House" ToRole="WaterCounter" />
+        </EntityType>
+        <EntityType Name="WaterCounter">
+          <Key>
+            <PropertyRef Name="WaterCounterId" />
+          </Key>
+          <Property Name="WaterCounterId" Type="Guid" Nullable="false" />
+          <Property Name="WaterValues" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Number" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="House" Relationship="DanfossTestDatabaseModel.FK__House__RefWaterC__2A4B4B5E" FromRole="WaterCounter" ToRole="House" />
+        </EntityType>
+        <Association Name="FK__House__RefWaterC__2A4B4B5E">
+          <End Type="DanfossTestDatabaseModel.WaterCounter" Role="WaterCounter" Multiplicity="0..1" />
+          <End Type="DanfossTestDatabaseModel.House" Role="House" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WaterCounter">
+              <PropertyRef Name="WaterCounterId" />
+            </Principal>
+            <Dependent Role="House">
+              <PropertyRef Name="RefWaterCounter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DanfossTestDatabaseModelStoreContainer" CdmEntityContainer="DanfossTestDatabaseEntities" >
+          <EntitySetMapping Name="House">
+            <EntityTypeMapping TypeName="DanfossTestDatabaseModel.House">
+              <MappingFragment StoreEntitySet="House">
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="RefWaterCounter" ColumnName="RefWaterCounter" />
+                <ScalarProperty Name="HouseId" ColumnName="HouseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WaterCounter">
+            <EntityTypeMapping TypeName="DanfossTestDatabaseModel.WaterCounter">
+              <MappingFragment StoreEntitySet="WaterCounter">
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="WaterValues" ColumnName="WaterValues" />
+                <ScalarProperty Name="WaterCounterId" ColumnName="WaterCounterId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
